@@ -1,46 +1,18 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { Navigation } from 'react-native-navigation';
 
-import CheckNearby from './src/components/CheckNearby';
-import Profile from './src/components/Profile';
-//import MapPage from './src/components/MapPage'
+import AuthScreen from './src/screens/Auth';
+import UserProfile from './src/screens/UserProfile';
+import Map from './src/screens/Map';
 
-export default class App extends Component {
-  state = {
-    places: []
-  };
+//Register Component
+Navigation.registerComponent("CodeZero.AuthScreen", () => AuthScreen);
+Navigation.registerComponent("CodeZero.ProfileScreen", () => UserProfile);
+Navigation.registerComponent("CodeZero.MapScreen", () => Map);
 
-  placeAddedHandler = (placeName, destinationName) => {
-    this.setState(prevState => {
-      return {
-        places: prevState.places.concat([placeName, destinationName])
-      }
-    })
-  };
-
-  render() {
-    //Returns the places as JSX elements
-    const placesOutput = this.state.places.map((place, i) => (
-      <Text key={i}>{place}</Text>
-    ));
-
-    return (
-      // <View style={styles.container}>
-      //   <CheckNearby
-      //     onPlaceAdded={this.placeAddedHandler}
-      //   />
-      //   <View>{placesOutput}</View>
-      // </View>
-      <Profile/>
-    );
+//Start a react-nativation app
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: "CodeZero.AuthScreen",
+    title: "Login / Signup"
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
 });
